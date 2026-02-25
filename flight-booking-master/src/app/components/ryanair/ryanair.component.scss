@@ -1,0 +1,139 @@
+@use 'variables' as vars;
+
+/* shared snippets */
+%btn-reset {
+  border: none;
+  box-shadow: none;
+}
+%roboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+:host {
+  display: block;
+  padding: vars.$padding-20;
+  min-height: fit-content;
+  background-color: #0b43b3;
+  .dropdown-row {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    &__dropdown {
+      flex: 0 0 auto;
+      width: 100%;
+      margin-bottom: vars.$padding-06;
+      @extend %btn-reset;
+      &__from {
+        border-top-right-radius: vars.$padding-05;
+        border-bottom-right-radius: vars.$padding-05;
+      }
+      &__to {
+        border-top-left-radius: vars.$padding-05;
+        border-bottom-left-radius: vars.$padding-05;
+      }
+      &__title {
+        color: grey;
+        font-size: vars.$padding-12;
+        @extend %roboto;
+        margin-bottom: vars.$padding-06;
+      }
+      &__selected {
+        font-size: vars.$padding-18;
+        @extend %roboto;
+      }
+    }
+    &__icon {
+      color: grey;
+    }
+    &__button-search {
+      flex: 0 0 auto;
+      width: 100%;
+      color: #0b43b3;
+      height: vars.$padding-50;
+      font-size: vars.$padding-18;
+      margin-top: vars.$padding-08;
+      font-weight: bold;
+      @extend %roboto;
+      background-color: #ddb82f;
+      margin-inline-start: 0;
+    }
+    &__button-switch-style {
+      @extend %btn-reset;
+      height: vars.$padding-50;
+      display: flex;
+      align-self: center;
+      align-items: center;
+      margin-bottom: vars.$padding-06;
+      border-radius: vars.$padding-05;
+      justify-content: center;
+      background-color: #fff;
+      .pi-arrow-left,
+      .pi-arrow-right {
+        display: inline-block;
+        transform: rotate(90deg);
+        font-size: vars.$padding-16;
+        margin-right: vars.$padding-02;
+        transform-origin: center;
+      }
+    }
+    @media (min-width: vars.$breakpoint-sm) {
+      align-items: stretch;
+      flex-direction: row;
+      &__dropdown {
+        flex: 0 0 35%;
+        width: auto;
+        margin-bottom: 0;
+        &__from {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+        &__to {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+      }
+      &__button-switch-style {
+        height: -webkit-fill-available;
+        align-self: center;
+        margin-bottom: 0;
+        border-radius: 0;
+        .pi-arrow-left,
+        .pi-arrow-right {
+          transform: rotate(0deg);
+        }
+      }
+      &__button-search {
+        flex: 0 0 20%;
+        width: auto;
+        height: auto;
+        margin-top: 0;
+        margin-inline-start: vars.$padding-08;
+      }
+    }
+  }
+  ::ng-deep {
+    .p-icon {
+      display: none;
+    }
+    .p-button,
+    .p-button:not(:disabled):hover {
+      @extend %btn-reset;
+    }
+    .p-overlay-content {
+      position: relative;
+      margin-top: vars.$padding-10;
+      &::before {
+        top: -(vars.$padding-12);
+        left: 50%;
+        border: solid transparent;
+        content: "";
+        z-index: 1;
+        position: absolute;
+        transform: translateX(-50%);
+        border-width: 0 vars.$padding-10 vars.$padding-12 vars.$padding-10;
+        border-bottom-color: white;
+      }
+    }
+  }
+}

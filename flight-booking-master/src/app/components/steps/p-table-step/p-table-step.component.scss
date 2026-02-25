@@ -1,0 +1,10 @@
+@use 'variables' as vars;
+
+:host {
+  .table {
+    padding-bottom: vars.$padding-32;
+    &__cell {
+      padding: vars.$padding-12;
+    }
+  }
+}

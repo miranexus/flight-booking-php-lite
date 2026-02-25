@@ -1,0 +1,17 @@
+@use 'variables' as vars;
+
+:host {
+  .step-wrapper {
+    gap: vars.$padding-16;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    padding: vars.$padding-16;
+    display: flex;
+    position: fixed;
+    background: #fff;
+    box-shadow: 0 -2px vars.$padding-08 rgba(0,0,0,0.05);
+    justify-content: center;
+  }
+}

@@ -1,0 +1,20 @@
+<div class="direction-radio-buttons">
+  <label for="tripTypeReturn" [class.direction-radio-buttons__selected]="tripType === 'return'">
+    <p-radioButton
+      name="tripType"
+      value="return"
+      inputId="tripTypeReturn"
+      [(ngModel)]="tripType"
+    ></p-radioButton>
+    Return trip
+  </label>
+  <label for="tripTypeOneway" [class.direction-radio-buttons__selected]="tripType === 'oneway'">
+    <p-radioButton
+      name="tripType"
+      value="oneway"
+      inputId="tripTypeOneway"
+      [(ngModel)]="tripType"
+    ></p-radioButton>
+    One way
+  </label>
+</div>

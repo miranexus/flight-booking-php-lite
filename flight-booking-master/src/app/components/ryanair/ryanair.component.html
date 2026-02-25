@@ -1,0 +1,46 @@
+<direction-radio-buttons></direction-radio-buttons>
+
+<div class="dropdown-row">
+  <p-select
+    class="dropdown-row__dropdown dropdown-row__dropdown__from"
+    inputId="fromCity"
+    optionLabel="name"
+    placeholder="From"
+    [options]="cities"
+    [(ngModel)]="selectedCities.from"
+    (ngModelChange)="setSelectedCityByKey($event, 'from')"
+  >
+    <ng-template let-selectedItem pTemplate="selectedItem">
+      <div class="dropdown-row__dropdown__title">From</div>
+      <div *ngIf="selectedItem" class="dropdown-row__dropdown__selected">{{ selectedItem.name }}</div>
+    </ng-template>
+  </p-select>
+
+  <button
+    type="button"
+    pButton
+    class="dropdown-row__button-switch dropdown-row__button-switch-style"
+    (click)="switchCities()"
+  >
+    <i class="pi pi-arrow-left dropdown-row__icon"></i>
+    <i class="pi pi-arrow-right dropdown-row__icon"></i>
+  </button>
+
+  <p-select
+    class="dropdown-row__dropdown dropdown-row__dropdown__to"
+    inputId="toCity"
+    optionLabel="name"
+    placeholder="To"
+    [options]="cities"
+    [(ngModel)]="selectedCities.to"
+    (ngModelChange)="setSelectedCityByKey($event, 'to')"
+  >
+    <ng-template let-selectedItem pTemplate="selectedItem">
+      <div class="dropdown-row__dropdown__title">To</div>
+      <div *ngIf="selectedItem" class="dropdown-row__dropdown__selected">{{ selectedItem.name }}</div>
+    </ng-template>
+  </p-select>
+
+  <button class="dropdown-row__button-search" type="button" pButton label="Search" (click)="saveSelections()"></button>
+</div>
+

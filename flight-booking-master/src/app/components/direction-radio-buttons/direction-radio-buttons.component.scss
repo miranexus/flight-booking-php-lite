@@ -1,0 +1,27 @@
+@use 'variables' as vars;
+
+:host {
+  .direction-radio-buttons {
+    gap: vars.$padding-18;
+    padding: vars.$padding-12 0;
+    display: flex;
+    align-items: center;
+    margin-bottom: vars.$padding-16;
+    flex-direction: row;
+    &__selected {
+      border: vars.$padding-01 solid #fff;
+      padding: vars.$padding-02 vars.$padding-04;
+      border-radius: vars.$padding-04;
+    }
+    label {
+      gap: vars.$padding-12;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      padding: vars.$padding-02 vars.$padding-04;
+      font-size: vars.$padding-14;
+      align-items: center;
+      font-family: 'Roboto', sans-serif;
+    }
+  }
+}

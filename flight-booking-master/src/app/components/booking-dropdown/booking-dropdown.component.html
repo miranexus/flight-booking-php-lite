@@ -1,0 +1,21 @@
+<p-select
+  #dropdownTrigger
+  class="dropdown"
+  [class.dropdown--border]="border"
+  [class.dropdown--border-top-radius]="borderTopRadius"
+  [class.dropdown--border-left-radius]="borderLeftRadius"
+  [class.dropdown--border-right-radius]="borderRightRadius"
+  [class.dropdown--border-bottom-radius]="borderBottomRadius"
+  inputId="fromCity"
+  optionLabel="name"
+  placeholder="From"
+  [options]="cities"
+  [(ngModel)]="selectedCities.from"
+  (onShow)="onOverlayShow()"
+  (ngModelChange)="setSelectedCityByKey($event, 'from')"
+>
+  <ng-template let-selectedItem pTemplate="selectedItem">
+    <div class="dropdown__title">From</div>
+    <div *ngIf="selectedItem" class="dropdown__selected">{{ selectedItem.name }}</div>
+  </ng-template>
+</p-select>

@@ -1,0 +1,16 @@
+@use 'variables' as vars;
+
+:host {
+  display: block;
+  padding: vars.$padding-20;
+  min-height: fit-content;
+  background-color: #05203c;
+  .dropdown-container {
+    display: flex;
+    margin-top: vars.$padding-20;
+    > * {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+}

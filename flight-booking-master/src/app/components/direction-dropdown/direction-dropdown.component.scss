@@ -1,0 +1,62 @@
+@use 'variables' as vars;
+
+%p-select-text {
+  font-size: vars.$padding-14;
+  font-family: 'Polaris Regular', Arial, sans-serif;
+}
+
+:host {
+  .directions {
+    font-size: vars.$padding-14;
+    margin-inline-end: vars.$padding-08;
+  }
+  ::ng-deep {
+    .p-icon {
+      color: white;
+    }
+    .p-select,
+    .p-select-label,
+    .p-select-option {
+      @extend %p-select-text;
+    }
+    .p-select {
+      box-shadow: none;
+      background-color: #05203c;
+      &:hover {
+        box-shadow: inset 0 0 0 1px #fff;
+      }
+      &:not(.p-disabled).p-focus {
+        box-shadow: none;
+        border-color: white;
+      }
+    }
+    .p-select-list {
+      width: 300px;
+      padding: vars.$padding-18;
+    }
+    .p-select-label {
+      color: white;
+      box-shadow: none;
+      padding-top: vars.$padding-05;
+      padding-bottom: vars.$padding-05;
+      padding-inline-end: 0;
+      padding-inline-start: vars.$padding-10;
+      &.p-placeholder {
+        color: white;
+      }
+    }
+    .p-select-option {
+      color: black;
+      position: relative;
+      &.p-select-option-selected {
+        color: black;
+        background: white;
+        &:hover,
+        &.p-focus {
+          color: black;
+          background: #eff3f8;
+        }
+      }
+    }
+  }
+}

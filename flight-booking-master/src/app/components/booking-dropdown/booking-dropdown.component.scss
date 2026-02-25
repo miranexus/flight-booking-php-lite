@@ -1,0 +1,115 @@
+@use 'variables' as vars;
+
+$overlay-bg: white;
+$overlay-arrow-size: 8px;
+$overlay-arrow-offset: 8px;
+$overlay-arrow-bottom-margin: 2px;
+
+@mixin overlay-panel($flipped: false) {
+  position: relative;
+  margin-top: if($flipped, 0, $overlay-arrow-offset);
+  margin-bottom: if($flipped, $overlay-arrow-offset, 0);
+  &::before {
+    left: 50%;
+    content: "";
+    z-index: 1;
+    border: solid transparent;
+    position: absolute;
+    transform: translateX(-50%);
+    @if $flipped {
+      top: auto;
+      bottom: -$overlay-arrow-offset;
+      border-width: $overlay-arrow-size $overlay-arrow-size 0 $overlay-arrow-size;
+      margin-bottom: $overlay-arrow-bottom-margin;
+      border-top-color: $overlay-bg;
+      border-bottom-color: transparent;
+    } @else {
+      top: -$overlay-arrow-offset;
+      bottom: auto;
+      border-width: 0 $overlay-arrow-size $overlay-arrow-size $overlay-arrow-size;
+      border-bottom-color: $overlay-bg;
+    }
+  }
+}
+
+$dropdown-radius: vars.$padding-05;
+
+$border-radius-map: (
+  top: (top-left, top-right),
+  bottom: (bottom-left, bottom-right),
+  left: (top-left, bottom-left),
+  right: (top-right, bottom-right)
+);
+
+%btn-reset {
+  border: none;
+  box-shadow: none;
+}
+
+%roboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+:host {
+  display: block;
+  .dropdown {
+    width: 100%;
+    border-radius: 0;
+    @extend %btn-reset;
+    &__title {
+      color: grey;
+      font-size: vars.$padding-12;
+      margin-bottom: vars.$padding-06;
+      @extend %roboto;
+    }
+    &__selected {
+      font-size: vars.$padding-18;
+      @extend %roboto;
+    }
+    &--border {
+      border-left: vars.$padding-04 solid #05203c;
+      border-right: vars.$padding-04 solid #05203c;
+    }
+    @each $name, $corners in $border-radius-map {
+      &--border-#{$name}-radius {
+        @each $corner in $corners {
+          border-#{$corner}-radius: $dropdown-radius;
+        }
+      }
+    }
+  }
+  ::ng-deep {
+    .p-icon {
+      display: none;
+    }
+    .p-button,
+    .p-button:not(:disabled):hover {
+      @extend %btn-reset;
+    }
+    .p-overlay-content,
+    .p-dropdown-panel,
+    .p-overlaypanel {
+      @include overlay-panel(false);
+      &.flipped {
+        @include overlay-panel(true);
+      }
+    }
+    .p-select:not(.p-disabled):hover,
+    .p-select:not(.p-disabled):focus,
+    .p-select:not(.p-disabled).p-focus,
+    .p-select:not(.p-disabled):focus-visible {
+      box-shadow: none;
+      border-color: #05203c;
+    }
+    .p-select-option.p-select-option-selected,
+    .p-select-option.p-select-option-selected:hover,
+    .p-select-option.p-select-option-selected.p-focus {
+      color: black;
+      background: none;
+    }
+    .p-select-option.p-select-option-selected.p-focus:hover {
+      color: black;
+      background: #f1f5f9;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+@use 'variables' as vars;
+
+:host {
+  .dialog-button {
+    margin-bottom: vars.$padding-16;
+  }
+  .dialog-form {
+    gap: vars.$padding-16;
+    display: flex;
+    margin-top: vars.$padding-16;
+    flex-direction: column;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    &__items {
+      margin-bottom: vars.$padding-04;
+    }
+    &__actions {
+      gap: vars.$padding-08;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}
