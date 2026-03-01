@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PrimeNgData } from '../models';
 
-const apiBaseUrl = (window as any).__API_BASE_URL__ || 'http://localhost:8080/api';
-const baseUrl = `${apiBaseUrl.replace(/\/$/, '')}/prime-ng-data`;
+// Use the live API base URL from window.__API_BASE_URL__
+const apiBaseUrl = (window as any).__API_BASE_URL__ || 'https://miranexus.com/api/flight-booking-php-lite/index.php';
+const baseUrl = `${apiBaseUrl}?path=/prime-ng-data`;
 
 @Injectable({
   providedIn: 'root',
@@ -17,18 +18,25 @@ export class PrimeNgDataService {
   }
 
   get(id: any): Observable<PrimeNgData> {
+    // Validate id is a number
+    if (!/^[0-9]+$/.test(String(id))) throw new Error('Invalid ID');
     return this.http.get<PrimeNgData>(`${baseUrl}/${id}`);
   }
 
   create(data: any): Observable<any> {
-    return this.http.post(baseUrl, data);
+    // Sanitize input data
+    const sanitized = this.sanitizeData(data);
+    return this.http.post(baseUrl, sanitized);
   }
 
   update(id: any, data: any): Observable<any> {
-    return this.http.put(`${baseUrl}/${id}`, data);
+    if (!/^[0-9]+$/.test(String(id))) throw new Error('Invalid ID');
+    const sanitized = this.sanitizeData(data);
+    return this.http.put(`${baseUrl}/${id}`, sanitized);
   }
 
   delete(id: any): Observable<any> {
+    if (!/^[0-9]+$/.test(String(id))) throw new Error('Invalid ID');
     return this.http.delete(`${baseUrl}/${id}`);
   }
 
@@ -37,6 +45,17 @@ export class PrimeNgDataService {
   }
 
   findByTitle(title: any): Observable<PrimeNgData[]> {
-    return this.http.get<PrimeNgData[]>(`${baseUrl}?title=${title}`);
+    // Sanitize title for query param
+    const params = new HttpParams().set('title', encodeURIComponent(String(title).replace(/[^\w\s-]/g, '')));
+    return this.http.get<PrimeNgData[]>(baseUrl, { params });
+  }
+
+  private sanitizeData(data: any): any {
+    // Only allow expected fields and basic sanitization
+    return {
+      title: typeof data.title === 'string' ? data.title.replace(/<[^>]*>?/gm, '').trim() : '',
+      description: typeof data.description === 'string' ? data.description.replace(/<[^>]*>?/gm, '').trim() : '',
+      published: !!data.published
+    };
   }
 }
